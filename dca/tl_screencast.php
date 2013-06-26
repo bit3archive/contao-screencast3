@@ -163,7 +163,8 @@ $GLOBALS['TL_DCA']['tl_screencast'] = array
 			'label'     => &$GLOBALS['TL_LANG']['tl_screencast']['path'],
 			'inputType' => 'fileTree',
 			'exclude'   => true,
-			'sql'       => "text NULL"
+			'eval'      => array('files' => true, 'filesOnly' => true, 'fieldType' => 'radio'),
+			'sql'       => "text NULL",
 		),
 		'youtubeShowSuggestions'    => array
 		(

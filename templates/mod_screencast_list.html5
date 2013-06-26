@@ -5,11 +5,30 @@
 <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
 <?php endif; ?>
 
+<?php if ($this->filterByType): ?>
+	<div>
+		<form method="get" action="<?php \Environment::get('request'); ?>">
+			<select name="type">
+				<option value="">-</option>
+				<option value="local"<?php if ($this->typeFilter == 'local'): ?> selected<?php endif; ?>><?php echo $GLOBALS['TL_LANG']['tl_screencast']['local']; ?></option>
+				<option value="remote"<?php if ($this->typeFilter == 'remote'): ?> selected<?php endif; ?>><?php echo $GLOBALS['TL_LANG']['tl_screencast']['remote']; ?></option>
+			</select>
+			<input type="submit">
+		</form>
+	</div>
+<?php endif; ?>
+
 <?php foreach ($this->screencasts as $screencast): ?>
 	<h2><?php echo $screencast['title']; ?></h2>
-	<p>
-		<iframe width="560" height="315" src="http://www.youtube-nocookie.com/embed/<?php echo str_replace('http://youtu.be/', '', $screencast['url']); ?>?rel=0" frameborder="0" allowfullscreen></iframe>
-	</p>
+	<?php if ($screencast['type'] == 'local'): ?>
+		<p>
+			<?php echo $screencast['path']; ?>
+		</p>
+	<?php else: ?>
+		<p>
+			<iframe width="560" height="315" src="http://www.youtube-nocookie.com/embed/<?php echo str_replace('http://youtu.be/', '', $screencast['url']); ?>?rel=0" frameborder="0" allowfullscreen></iframe>
+		</p>
+	<?php endif; ?>
 <?php endforeach; ?>
 
 </div>
